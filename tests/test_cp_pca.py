@@ -1,5 +1,5 @@
 import numpy as np
-from methods.pcpca import cp_spca
+from methods.cp_pca import cp_spca
 
 def test_cp_spca():
     # Test 1: Basic functionality with alpha = 0 (PCA solution)

@@ -1,4 +1,6 @@
 from methods.cp_pca import cp_spca
+from methods.gpower import gpower
+
 #from gpower import gpower
 
 import numpy as np
@@ -22,8 +24,8 @@ def MultiSpca(data, n_comp, Alpha, method = "cp_pca"):
 
      # Mapping method names to functions
     methods = {
-        "cp_pca": cp_spca
-        #"gpower": gpower
+        "cp_pca": cp_spca,
+        "gpower": gpower
     }
     if method not in methods:
         raise ValueError(f"Unknown method: {method}. Choose from {list(methods.keys())}.")
