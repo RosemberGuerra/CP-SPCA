@@ -22,7 +22,7 @@ result_raw$loadings
 # [2,]  0.0000000 -0.9310918
 # [3,] -0.5640043  0.0000000
 # [4,]  0.0000000 -0.3647850
-
+ss
 # resulting loadings are of length 1
 t(result_raw$loadings ) %*% result_raw$loadings
 # [,1] [,2]
