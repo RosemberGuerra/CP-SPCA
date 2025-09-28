@@ -52,6 +52,7 @@ S <- 10
 n <- 100
 p <- c(20)
 
+save(S,n,p, file = "../data/synthetic/setup.RData")
 # Create a grid of parameter combinations for simulations
 param_grid <- expand.grid(n = n, p = p, s = 1:S)
 
