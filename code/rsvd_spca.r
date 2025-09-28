@@ -1,7 +1,7 @@
 ## rSVD-sPCA function implementation
 
 # install package if it does not exist yet
-if (!requireNamespace(pkg, quietly = TRUE)) {
+if (!requireNamespace('ltsspca', quietly = TRUE)) {
   install.packages(ltsspca)
 }
 
