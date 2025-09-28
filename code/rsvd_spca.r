@@ -63,6 +63,6 @@ sPCA_rSVD_timed = function (x, k, method = "hard", center = FALSE, scale = FALSE
   )
   
   return(list(w = v, scores = scores, eigenvalues = eigenvalues, 
-              ls = ls, spca.it = spca.it, time = runningtime))
+              ls = ls, spca.it = spca.it, time = runningtime[[3]]))
 }
 
