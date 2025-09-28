@@ -8,7 +8,6 @@
 rm(list = ls())
 
 # Load external functions for data generation
-
 generate_ordered_eigen_data <- function(n, p, mu = 0, sigma = 1, eigenvalues = NULL) {
   # n: number of samples
   # p: number of features
@@ -18,7 +17,13 @@ generate_ordered_eigen_data <- function(n, p, mu = 0, sigma = 1, eigenvalues = N
   
   if (is.null(eigenvalues)) {
     # Generate a decreasing sequence of positive eigenvalues
-    eigenvalues <- sort(runif(p, 1, 10), decreasing = TRUE)
+    if (p > n){
+      eigenvalues <- c(sort(runif(n, .5, 10), decreasing = TRUE),
+                       rep(0,p-n))
+    }else {
+      eigenvalues <- sort(runif(p, .5, 10), decreasing = TRUE)  
+    }
+    
   }
   
   # Generate a random orthonormal matrix (eigenvectors)
@@ -33,6 +38,7 @@ generate_ordered_eigen_data <- function(n, p, mu = 0, sigma = 1, eigenvalues = N
   
   return(X)
 }
+
 # Set the seed for reproducibility of random number generation
 set.seed(123)
 
@@ -42,10 +48,11 @@ set.seed(123)
 # S: Number of simulations to run
 # n: Number of observations in each dataset
 # p: Number of variables to test (small, medium, large settings)
-S <- 1000
+S <- 10
 n <- 100
-p <- c(20, 100, 200)
+p <- c(20)
 
+save(S,n,p, file = "../data/synthetic/setup.RData")
 # Create a grid of parameter combinations for simulations
 param_grid <- expand.grid(n = n, p = p, s = 1:S)
 
@@ -84,7 +91,7 @@ for (i in 1:nrow(param_grid)) {
   
   # Save the generated data matrix to a file
   write.table(X, 
-              file = paste0('../data/simdata_', n, '_', p, '_', s, '.txt'), 
+              file = paste0('../data/synthetic/simdata_', n, '_', p, '_', s, '.txt'), 
               row.names = FALSE, 
               col.names = FALSE)
 }
