@@ -5,7 +5,7 @@
 ########################################################
 
 # Set the working directory to the location of this file
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #### Load required libraries ####
 library(foreach)      # Parallel processing support
@@ -32,10 +32,10 @@ registerDoParallel(cl)
 #### Parameter Initialization ####
 load('../data/synthetic/setup.RData')
 
-methd <- c('alt','cp') # Types of penalty functions
+methd <- c('cp') # Types of penalty functions
 k <- 1                             # Number of components
 n_alpha <- 10                      # Number of regularization parameters
-alpha <- seq(from = 0, to = 1, by = 1 / n_alpha) # Regularization parameters
+alpha <- seq(from = 0, to = .5, by = 1 / n_alpha) # Regularization parameters
 
 # Create a grid of parameters for the simulations
 param_grid <- expand.grid(n = n, p = p, s = c(1:S), method = methd, alpha = alpha)
@@ -56,7 +56,7 @@ source('../code/metrics.R')
 
 # Perform parallel computation for each parameter set in the grid
 for(i in 1:total_iterations){
-
+  print(i)
   # Extract parameter values for the current iteration
   n <- param_grid$n[i]
   p <- param_grid$p[i]
@@ -81,6 +81,6 @@ for(i in 1:total_iterations){
   card <- cardinality(spca$w)    # Sparsity (number of selected features)
   
   # Return results for the current iteration
-  results[i]= data.frame(param_grid[i, ], pev, card, pev_adj, spca$time)
+  results[i,]= data.frame(param_grid[i, ], pev, card, pev_adj, spca$time)
 }
 
